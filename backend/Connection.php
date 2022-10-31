@@ -1,24 +1,17 @@
-<?php 
+<?php
+//Get  connection information
+    $host = "localhost";
+    $username = "root";
+    $password = "";
+    $database_db = "php-blog-post";
 
-// Path: backend/Connection.php
-
-$host = "localhost"; 
-$username = "root";
-$userpass = '';
-$database = "php_blog_post";
-
-function connect(){
-    global $host, $username,$database, $userpass;
-    $conn = new mysqli($host, $username,$userpass, $database);
-    if($conn->connect_error){
-        die("Connection Failed: ". $conn->connect_error);
-    }
-    else{
+    function connect() {
+        global $host, $username, $password, $database_db;
+        $conn = new mysqli($host, $username, $password, $database_db);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
         return $conn;
     }
-
-}
-
-function closeConnection($conn){
-    $conn->close();
-}
+    
+?>

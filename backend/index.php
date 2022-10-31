@@ -74,11 +74,9 @@
                             </form>
                             <form id="register-form" class="form" action="useraction.php" method="post" role="form" style="display: none; ">
                                  <div class="form-group">
-                                    <input type="text" name="fullname" id="fullname" tabindex="1" class="form-control" placeholder="Full Name" value="">
+                                    <input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Full Name" value="">
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                                </div>
+    
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
                                 </div>
