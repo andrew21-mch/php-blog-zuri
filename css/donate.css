@@ -1,0 +1,153 @@
+.theme-blue {
+    color: #427bb8;
+  }
+  .theme-orange {
+    color: #cc851c;
+  }
+  .theme-green {
+   color: #8ab042;
+  }
+  .theme-grey {
+    color: #666666;
+  }
+  .theme-white {
+    color: #fff;
+  }
+  .theme-background-blue {
+    background-color: #427bb8;
+    color: #fff;
+  }
+  .theme-background-orange {
+    background-color: #cc851c;
+    color: #fff;
+  }
+  .theme-background-green {
+    background-color: #8ab042;
+    color: #fff;
+  }
+  .theme-background-grey {
+    background-color: #666666;
+    color: #fff;
+  }
+  .theme-background-white {
+    background-color: #fff;
+    color: #4c4c4c;
+  }
+  .donate-bar {
+    padding: 32px 23px 28px;
+  }
+  .donate-bar > div:first-child {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    border-right: 1px dotted #2a4f76;
+    margin-top: 19px;
+    font-size: 25px;
+    padding: 0;
+  }
+  .donate-buttons>li>a {
+    font-size: 17px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    position: relative;
+    display: block;
+    padding: 10px 3px;
+    border-radius: 5px;
+  }
+  .btn-blue-other,
+  .btn-blue {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    background-color: #427bb8;
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    padding: 0;
+    width: 75px;
+    height: 37px;
+    margin-top: 8px;
+  }
+  .btn-green {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    background-color: #8ab042;
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    padding: 0;
+    width: 114px;
+    height: 37px;
+    margin-top: 8px;
+  }
+  
+  .btn-yellow {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+    background-color: #e4d00a;
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    padding: 0;
+    width: 114px;
+    height: 37px;
+    margin-top: 8px;
+  }
+  #other-input {
+    display: none;
+  }
+  #other-input input {
+    position: relative;
+    font-weight: bold;
+    background-color: #fff;
+    color: #427bb8;
+    border-radius: 5px;
+    border: 0;
+    border: 5px solid #427bb8;
+    padding: 0 0 3px 15px;
+    width: 75px;
+    height: 37px;
+    margin: 18px 3px 0;
+  }
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+   margin: 0; 
+  }
+  #other-input span {
+    font-family: inherit;
+    font-weight:bold;
+    color: #427bb8;
+    position: absolute;
+    padding: 23px 12px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .impact {
+    font-size: 1.1em;
+    font-weight: bold;
+    clear: both;
+  }
+  .nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .donate-buttons .active {
+    background-color: #fff;
+    border: 5px solid #427bb8;
+    color: #427bb8;
+  }
+  .donate-buttons:focus {
+  outline: -webkit-focus-ring-color auto 0px;
+  }
+  .donate-buttons li:last-child {
+    font-size: 17px;
+    line-height: 37px;
+    padding-left: 20px;
+    padding-top: 15px;
+  }
+
+  .donates{
+    font-size: 1.1em;
+    font-weight: bold;
+    clear: both;
+    height: 200px;
+  }
