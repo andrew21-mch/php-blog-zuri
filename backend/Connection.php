@@ -3,7 +3,7 @@
     $host = "localhost";
     $username = "root";
     $password = "";
-    $database_db = "php-blog-post";
+    $database_db = "php_blog_post";
 
     function connect() {
         global $host, $username, $password, $database_db;
