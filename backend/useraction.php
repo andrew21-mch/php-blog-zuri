@@ -5,9 +5,10 @@ session_start();
 include_once './Connection.php';
 include_once './User.php';
 
+$user  = new User();
+
 
 if(isset($_POST['login-submit'])){
-    $user  = new User();
     $password = $_POST['password'];
     $username = $_POST['username'];
     if($user->login($username, $password)){
@@ -16,6 +17,32 @@ if(isset($_POST['login-submit'])){
         return header("location: ./dashboard.php");
     }else{
         $_SESSION['error'] = "Invalid username or password";
-        header("Location: ./index.php");
+        header("Location: ./login.php");
     }
+}
+
+elseif(isset($_POST['register-submit'])){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password_repeat = $_POST['password-repeat'];
+    if($user->passwordMatch($password, $password_repeat)){
+        if($user->register($name, $email, $password, $password_repeat)){
+            $username = $_POST['username'];
+            $_SESSION['username'] = $email;
+            return header("location: ./dashboard.php");
+        }else{
+            $_SESSION['error'] = "Invalid username or password";
+            header("Location: ./register.php");
+        }
+    }
+    else{
+        $_SESSION['passwordValidation'] = "Passwords do not match!";
+        header("location: ./register.php");
+    }
+    
+}
+
+elseif(isset($_POST['logout-submit'])){
+    $user->logout();
 }
