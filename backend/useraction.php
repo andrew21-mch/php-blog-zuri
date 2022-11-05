@@ -60,7 +60,7 @@ elseif(isset($_POST['logout-submit'])){
 elseif(isset($_POST['blog-submit'])){
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $video_url = $_POST['video_url'];
+    $video_url = $_POST['url'];
     $image = $_POST['image'];
 
     $blog->setTitle($title);

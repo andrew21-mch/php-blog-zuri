@@ -6,10 +6,10 @@ class Blog {
     private $conn;
     private $title;
     private $content;
-    private $author;
-    private $image;
+    // private $author;
+    // private $image;
     private $slug;
-    private $date;
+    // private $date;
     private $video_url;
 
     public function __construct()
@@ -21,10 +21,10 @@ class Blog {
     public function create(){
         $title = $this->getTitle();
         $content = $this->getContent();
-        $slug = $this->createSlug($this->getSlug());
+        $slug = $this->createSlug($this->getTitle());
         $video_url = $this->getVid();
 
-        $sql = "INSERT INTO posts (title, content, video_url, slug ) VALUES ('$title', $content', '$video_url', '$slug')";
+        $sql = "INSERT INTO posts (`title`, `content`, `slug`, `video_url`) VALUES ('$title', '$content', '$slug', '$video_url')";
         if($this->conn->query($sql) === TRUE){
             return true;
         }
@@ -102,3 +102,11 @@ class Blog {
 
 
 }
+
+// $blog = new Blog();
+// $blog->setTitle("test Title");
+// $blog->setContent(" This is some test content");
+// $blog->setSlug("test Title");
+// $blog->setVid("https://yourhub.com");
+
+// var_dump($blog->create());
