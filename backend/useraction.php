@@ -4,8 +4,10 @@ session_start();
 
 include_once './Connection.php';
 include_once './User.php';
+include_once './Blog.php';
 
 $user  = new User();
+$blog = new Blog();
 
 
 if(isset($_POST['login-submit'])){
@@ -51,4 +53,27 @@ elseif(isset($_POST['register-submit'])){
 
 elseif(isset($_POST['logout-submit'])){
     $user->logout();
+}
+
+// https://github.com/andrew21-mch/php-blog-zuri//
+
+elseif(isset($_POST['blog-submit'])){
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $video_url = $_POST['video_url'];
+    $image = $_POST['image'];
+
+    $blog->setTitle($title);
+    $blog->setContent($content);
+    $blog->setVid($video_url);
+
+    if($blog->create()){
+        $_SESSION['created'] = "Post successfully Added";
+        header("Location: ./addblog.php");
+    }
+    else{
+        $_SESSION['not_created'] = "Post not Added";
+        header("Location: ./addblog.php");
+    }
+
 }

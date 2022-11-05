@@ -40,12 +40,26 @@
         <div class="item"><a href="#">Bawash</a></div>
         <div class="item ml-auto"><a href="#"><h4 style="color:blue">
                 <?php session_start();
-                if($_SESSION){
+                if($_SESSION['username']){
                     echo "Hi " . $_SESSION['username'];
                 }
                 ?>
             </h4></a></div>
     </div>
+
+    <?php
+    if(isset($_SESSION['created'])){ ?>
+        <div class="alert alert-success">
+            <span><?php echo $_SESSION['created']; ?></span>
+        </div>
+
+    <?php }
+    elseif(isset($_SESSION['not_created'])){ ?>
+        <div class="alert alert-danger">
+            <span><?php echo $_SESSION['not_created']; ?></span>
+        </div>
+    <?php }
+    ?>
     <h2 class="row justify-content-center mt-3">Admin</h2>
     <div class="container">
         <div class="row justify-content-center m-3">
