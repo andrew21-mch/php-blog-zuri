@@ -51,6 +51,8 @@ class User {
 
     }
 
+
+    // functional
     public function register($name, $email, $password,) {
         $hashed_password = $this->hashPassword($password);
         $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
@@ -61,7 +63,7 @@ class User {
         else{
             return false;
         }
-        }
+    }
 
     function passwordMatch($password, $password_repeat){
         if( $password == $password_repeat){
@@ -76,7 +78,24 @@ class User {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         return $hashed_password;
     }
+    
 
+    // object oriented best practices
+    public function save(){
+        // use accessors
+        $name = $this->getName();
+        $email = $this->getEmail();
+        $password = $this->hashPassword($this->getPassword());
+
+        $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$password')";
+        $result = $this->conn->query($sql);
+        if ($result) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
     // define setters and getters

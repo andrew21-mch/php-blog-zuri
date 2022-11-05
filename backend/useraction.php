@@ -27,8 +27,14 @@ elseif(isset($_POST['register-submit'])){
     $password = $_POST['password'];
     $password_repeat = $_POST['password-repeat'];
     if($user->passwordMatch($password, $password_repeat)){
-        if($user->register($name, $email, $password, $password_repeat)){
-            $username = $_POST['username'];
+        
+        // user mutators
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setPassword($password);
+
+        if($user->save()){
+            $username = $user->getEmail();
             $_SESSION['username'] = $email;
             return header("location: ./dashboard.php");
         }else{
