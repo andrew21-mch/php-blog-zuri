@@ -1,3 +1,8 @@
+<?php 
+include_once './Connection.php';
+include_once './User.php';
+
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,7 +76,14 @@
             <div class="card">
                 <div class="card-body">
                     <h3>Total Users</h3>
-                    <h1>0</h1>
+                    <h1>
+                        <?php 
+
+                        $user = new User();
+                        echo count($user->getUsers());
+                        ?>
+                    
+                    </h1>
                 </div>
             </div>
         </div>

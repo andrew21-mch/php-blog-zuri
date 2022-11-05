@@ -97,10 +97,25 @@ class User {
         }
     }
 
+    // public function countUsers(){
+    //     $sql = "SELECT COUNT(*) as count FROM users";
+    //     $result = $this->conn->query($sql);
+    //     $count = $result->fetch_assoc();
+    //     return $count["count"];
 
-    // define setters and getters
-    public function setUsername($name) {
-        $this->username = $name;
+    // }
+    public function getUsers(){
+        $sql = "SELECT * FROM users";
+        $result = $this->conn->query($sql);
+        $users = array();
+
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $users[] = $row;
+            }
+        }
+
+        return $users;
     }
     public function getUsername() {
         return $this->name;
@@ -131,5 +146,3 @@ class User {
     }
 
 }
-
-
