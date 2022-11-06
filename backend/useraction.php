@@ -55,8 +55,6 @@ elseif(isset($_POST['logout-submit'])){
     $user->logout();
 }
 
-// https://github.com/andrew21-mch/php-blog-zuri//
-
 elseif(isset($_POST['blog-submit'])){
     $title = $_POST['title'];
     $content = $_POST['content'];
@@ -76,4 +74,22 @@ elseif(isset($_POST['blog-submit'])){
         header("Location: ./addblog.php");
     }
 
+}
+
+
+elseif(isset($_POST['delete-submit'])){
+    $id = $_POST['postid'];
+    // $blog->setId = $id;
+    if($blog->deletePost($id)){
+        $_SESSION['deleted'] = "Post successfully deleted";
+        header("Location: ./dashboard.php");
+    }
+    else{
+        $_SESSION['not_deleted'] = "Post not deleted";
+        header("Location: ./dashboard.php");
+    }
+}
+
+else{
+    header("Location: ./");
 }

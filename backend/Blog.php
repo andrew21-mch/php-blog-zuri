@@ -6,11 +6,9 @@ class Blog {
     private $conn;
     private $title;
     private $content;
-    // private $author;
-    // private $image;
     private $slug;
-    // private $date;
     private $video_url;
+    private $id;
 
     public function __construct()
     {
@@ -24,7 +22,8 @@ class Blog {
         $slug = $this->createSlug($this->getTitle());
         $video_url = $this->getVid();
 
-        $sql = "INSERT INTO posts (`title`, `content`, `slug`, `video_url`) VALUES ('$title', '$content', '$slug', '$video_url')";
+
+        $sql = "INSERT INTO posts (`title`, `content`, `slug`, `video_url`, `date`) VALUES ('$title', '$content', '$slug', '$video_url', NOW())";
         if($this->conn->query($sql) === TRUE){
             return true;
         }
@@ -35,6 +34,55 @@ class Blog {
 
     }
 
+    public function getPosts(){
+        $sql = "SELECT id as postid, title, content, userid, date FROM posts";
+        $result = $this->conn->query($sql);
+        $posts = array();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $posts[] = $row;
+            }
+            return $posts;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function deletePost($id) {
+        $sql = "DELETE FROM posts WHERE id='$id'";
+        if ($this->conn->query($sql) === TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getPost($id){
+        $sql = "SELECT * FROM posts WHERE id='$id'";
+        $result = $this->conn->query($sql);
+        $post = array();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $post = $row;
+            }
+            return $post;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    // public function delete(){
+    //     $id = $this->getId();
+    //     $sql = "DELETE FROM posts WHERE id='$id'";
+    //     if ($this->conn->query($sql) === TRUE) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public function createSlug($title){
         $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $title);
@@ -98,15 +146,27 @@ class Blog {
     public function getSlug(){
         return $this->slug;
     }
+
+    public function setId($id){
+        $this->id = $id;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
     
+    public function getLoggedInUserId(){
+        if(isset($_SESSION['id'])){
+            return $_SESSION['id'];
+        }
+        else{
+            return false;
+        }
+
+    }
 
 
 }
 
-// $blog = new Blog();
-// $blog->setTitle("test Title");
-// $blog->setContent(" This is some test content");
-// $blog->setSlug("test Title");
-// $blog->setVid("https://yourhub.com");
-
-// var_dump($blog->create());
+$blog = new Blog();
+echo $blog->getLoggedInUserId();

@@ -1,6 +1,7 @@
 <?php 
 include_once './Connection.php';
 include_once './User.php';
+include_once './Blog.php';
 
 ?>
 <html lang="en">
@@ -60,7 +61,32 @@ include_once './User.php';
             echo "Hi ". $_SESSION['success'];
         }
         
+        
         ?>
+
+    <div class="">
+        <?php  if(isset($_SESSION['deleted'])){ ?>
+        <span class="alert alert-success">
+            <?php 
+                echo $_SESSION['deleted'];
+                unset($_SESSION['deleted']);
+                ?>
+            
+            </sapn>
+        </span>
+        <?php } ?>
+        
+        <?php  if(isset($_SESSION['not_deleted'])){ ?>
+        <span class="alert alert-danger">
+            <?php 
+                echo $_SESSION['not_deleted'];
+                unset($_SESSION['not_deleted']);
+                ?>
+            
+            </sapn>
+        </span>
+        <?php } ?>
+    </div>
     
     
 <!-- design dashboard -->
@@ -91,7 +117,14 @@ include_once './User.php';
             <div class="card">
                 <a class="card-body text-white" href="all-posts.php">
                     <h3>Total Posts</h3>
-                   <h1>0</h1>
+                    <h1>
+                        <?php 
+
+                        $posts = new Blog();
+                        echo count($posts->getPosts());
+                        ?>
+                    
+                    </h1>
                 </a>
             </div>
         </div>
