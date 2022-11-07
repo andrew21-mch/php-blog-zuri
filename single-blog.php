@@ -1,11 +1,6 @@
 <?php
 include './backend/Connection.php';
-include "./backend/Blog.php";
-
-$blogpost = new Blog();
-
-
-?>
+include "./backend/Blog.php";?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,10 +34,6 @@ $blogpost = new Blog();
         	font: inherit;
         	cursor: pointer;
         	outline: inherit;
-        	text-decoration: underline;
-        }
-        #blog a{
-            text-decoration: underline;
         }
     </style>
   </head>
@@ -80,8 +71,11 @@ $blogpost = new Blog();
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="projects.php" class="nav-link">Projects</a></li>
 	          <li class="nav-item"><a href="blog.php" class="nav-link">Blog</a></li>
-
+	          <li class="nav-item"><a href="donate.php" class="nav-link">Donate</a></li>
+	          <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -103,133 +97,48 @@ $blogpost = new Blog();
 <section class="ftco-section">
       <div class="container">
 		<div class="row justify-content-center">
-			<h1>Recent Blog Posts</h1>
-			<?php $posts = $blogpost->getPosts() 
-			
-			
-			?>
-
+			<h1>Blog</h1>
 		</div>
+        <div class="row">
+		 	<?php 
+		 		$blog = new Blog();	
+		 		
+		 		$id = $_GET['postid'];
+		 	    $blogpost = $blog->getPost($id); 
+		 	    
+		 	    
+		 	    
+		 	    ?>
+		 	    
+				    
+					<div class='col-md-10 ftco-animate'>
+					    <div class='blog-entry justify-content-end'>
+					        <div class='text text-center'>
+					            <a href='blog-single.php' class='block-20 img'>
+        							<img src= "./images/bg_2.jpg" alt='image' class='img-fluid'>
+        						</a>
+					            </form>
+					            <div class='meta text-center mb-2 align-items-center justify-content-center'>
+					                <div>
+                    					<?php
+                    						 $timestamp = strtotime($blogpost['date']);
+                    						 $day = date('d', $timestamp);
+                    						 $month = date('M', $timestamp);
+                    						 $year = date('Y', $timestamp);
+                    					?>
 
-		<div class="row" id="blog">
-			<?php 
-
-			if(count($posts) > 0) { 
-
-			foreach($posts as $post){ ?>
-			<div class="col-md-4 ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <div class="text text-center">
-              	<a href="blog-single.php" class="block-20 img" style="background-image: url('images/image_3.jpg');">
-	              </a>
-	              <div class="meta text-center mb-2 align-items-center justify-content-center">
-                	<div>
-						<?php
-
-						$date = strtotime($post['date']);
-						 $day = date('d', $date);
-						 $month = date('M', $date);
-						 $year = date('Y', $date);
-
-						 
-
-						?>
-                		<span class="day"><?php echo $day;?></span>
-                		<span class="mos"><?php echo $month ?></span>
-                		<span class="yr"><?php echo $year ?></span>
-                	</div>
-                </div>
-                <h3 class="heading mb-3"><a href="#"><?php echo $post['title'] ?></a></h3>
-                <p><?php echo substr($post['content'], 0, 70) ?></p>
-				<form action="./backend/useraction.php" method="GET">
-					<input type="hidden" value="<?php echo $post['postid']; ?>" name="postid">
-					<button type="submit" name='blog-single' class="btn btn-secondary" style="color: white; text-decoration: none"> View More</button>
-				</form>
-              </div>
-            </div>
-        </div>
-			<?php }
-			
-			?>
-          
-		
-		<?php
-
-			}else{
-			echo "NO POST FOUND";
-		} ?>
-		</div>
-        <!-- <div class="row" id="blog">
-          <div class="col-md-4 ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <div class="text text-center">
-              	<a href="blog-single.php" class="block-20 img" style="background-image: url('images/image_3.jpg');">
-	              </a>
-	              <div class="meta text-center mb-2 align-items-center justify-content-center">
-                	<div>
-                		<span class="day">18</span>
-                		<span class="mos">April</span>
-                		<span class="yr">2020</span>
-                	</div>
-                </div>
-                <h3 class="heading mb-3"><a href="#">Social Media Risks To Mental Health</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              </div>
-            </div>
-        </div>
-          <div class="col-md-4 ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <div class="text text-center">
-              	<a href="blog-single.php" class="block-20 img" style="background-image: url('images/image_2.jpg');">
-	              </a>
-	              <div class="meta text-center mb-2 align-items-center justify-content-center">
-                	<div>
-                		<span class="day">18</span>
-                		<span class="mos">April</span>
-                		<span class="yr">2020</span>
-                	</div>
-                </div>
-                <h3 class="heading mb-3"><a href="#">Social Media Risks To Mental Health</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <div class="text text-center">
-              	<a href="blog-single.php" class="block-20 img" style="background-image: url('images/image_1.jpg');">
-	              </a>
-	              <div class="meta text-center mb-2 align-items-center justify-content-center">
-                	<div>
-                		<span class="day">18</span>
-                		<span class="mos">April</span>
-                		<span class="yr">2020</span>
-                	</div>
-                </div>
-                <h3 class="heading mb-3"><a href="#">Social Media Risks To Mental Health</a mb-3></h3>
-								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>              
-							</div>
-            </div>
-          </div>
-
-          <div class="col-md-4 ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <div class="text text-center">
-              	<a href="blog-single.php" class="block-20 img" style="background-image: url('images/image_2.jpg');">
-	              </a>
-	              <div class="meta text-center mb-2 align-items-center justify-content-center">
-                	<div>
-                		<span class="day">18</span>
-                		<span class="mos">April</span>
-                		<span class="yr">2020</span>
-                	</div>
-                </div>
-                <h3 class="heading mb-3"><a href="#">Social Media Risks To Mental Health</a></h3>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
+                    					<span class='day'> <?php echo $day ?></span>
+                    					<span class='mos'> <?php echo $month ?></span> 
+                    					<span class='yr'><?php echo $year ?> </span>
+                    				</div>
+					            </div>
+    					    <h3 class='heading mb-2'>
+    					    	       <a href="#"><?php echo $blogpost['title']; ?></a></h3>
+    					            
+    					    <p> <?php echo $blogpost['content'] ?></p>
+					    </div>
+				    </div>
+				</div>
     </section>	
 
 

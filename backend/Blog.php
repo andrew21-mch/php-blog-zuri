@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once './Connection.php';
 
 class Blog {
@@ -9,6 +9,7 @@ class Blog {
     private $slug;
     private $video_url;
     private $id;
+    private $image;
 
     public function __construct()
     {
@@ -16,14 +17,15 @@ class Blog {
         $this->conn = $connection;
     }
 
-    public function create(){
+    public function create($filename){
         $title = $this->getTitle();
         $content = $this->getContent();
         $slug = $this->createSlug($this->getTitle());
         $video_url = $this->getVid();
+        $userid = isset($_SESSION['loggedInUser']) ? $_SESSION['loggedInUser'] : NULL;
 
 
-        $sql = "INSERT INTO posts (`title`, `content`, `slug`, `video_url`, `date`) VALUES ('$title', '$content', '$slug', '$video_url', NOW())";
+        $sql = "INSERT INTO posts (`title`, `content`, `slug`, `video_url`, `date`, `userid`, `image`) VALUES ('$title', '$content', '$slug', '$video_url', NOW(), '$userid', '$filename')";
         if($this->conn->query($sql) === TRUE){
             return true;
         }
@@ -35,7 +37,7 @@ class Blog {
     }
 
     public function getPosts(){
-        $sql = "SELECT id as postid, title, content, userid, date FROM posts";
+        $sql = "SELECT id as postid, `title`, `content`, `userid`, `slug`,  `date` FROM posts";
         $result = $this->conn->query($sql);
         $posts = array();
         if ($result->num_rows > 0) {
@@ -72,6 +74,60 @@ class Blog {
             return false;
         }
     }
+
+    public function update($id, $title, $content, $video_url){
+        $slug = $this->createSlug($title);
+        $sql = "UPDATE posts SET title='$title', content='$content', video_url='$video_url', slug='$slug' WHERE id='$id'";
+        if($this->conn->query($sql) === TRUE){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function getLoggedInUserId(){
+        if(isset($_SESSION['id'])){
+            return $_SESSION['id'];
+        }
+        else{
+            return false;
+        }
+
+    }
+
+
+    public function upload($file){
+        if(is_array($file)){
+            if(is_array($file['type'], array('image/jpeg', 'image/png', 'image/gif'))){
+                if($file['size'] <= 2000000){
+                    $filename = time(). '_'.$file['name'];
+                    $path = '../images/'.$filename;
+                    if(move_uploaded_file($file['tmp_name'], $path)){
+                        return $filename;
+                    }
+                }
+            }
+        }
+    }
+
+
+    // public function update(){
+    //     $title = $this->getTitle();
+    //     $content = $this->getContent();
+    //     $slug = $this->createSlug($this->getTitle());
+    //     $video_url = $this->getVid();
+    //     $id = $this->setId($this->getId());
+
+
+    //     $sql = "UPDATE posts SET title='$title', content='$content', video_url='$video_url', slug='$slug' WHERE id='$id'";
+    //     if($this->conn->query($sql) === TRUE){
+    //         return true;
+    //     }
+    //     else{
+    //         return false;
+    //     }
+    //}
 
 
     // public function delete(){
@@ -155,18 +211,5 @@ class Blog {
         return $this->id;
     }
     
-    public function getLoggedInUserId(){
-        if(isset($_SESSION['id'])){
-            return $_SESSION['id'];
-        }
-        else{
-            return false;
-        }
-
-    }
-
 
 }
-
-$blog = new Blog();
-echo $blog->getLoggedInUserId();

@@ -38,6 +38,8 @@ class User {
                 $user = $row;
             }
             if(password_verify($password, $user['password'])){
+                session_start();
+                $_SESSION['loggedInUser'] = $user['id'];
                 return true;
             }
             else{
@@ -117,6 +119,7 @@ class User {
 
         return $users;
     }
+
     public function getUsername() {
         return $this->name;
     }

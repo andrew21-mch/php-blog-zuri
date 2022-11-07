@@ -64,16 +64,20 @@ elseif(isset($_POST['blog-submit'])){
     $blog->setTitle($title);
     $blog->setContent($content);
     $blog->setVid($video_url);
+    $blog->setImage($image);
 
-    if($blog->create()){
-        $_SESSION['created'] = "Post successfully Added";
-        header("Location: ./addblog.php");
-    }
-    else{
-        $_SESSION['not_created'] = "Post not Added";
-        header("Location: ./addblog.php");
-    }
+    // echo $blog->getImage()
+    if($filename = $blog->upload($image)){
+        if($blog->create($filename)){
 
+            $_SESSION['created'] = "Post successfully Added";
+            header("Location: ./addblog.php");
+        }
+        else{
+            $_SESSION['not_created'] = "Post not Added";
+            header("Location: ./addblog.php");
+        }
+    }
 }
 
 
@@ -89,6 +93,34 @@ elseif(isset($_POST['delete-submit'])){
         header("Location: ./dashboard.php");
     }
 }
+
+elseif(isset($_POST['edit-blog-submit'])){
+   
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $video_url = $_POST['url'];
+    $id = $_POST['id'];
+
+
+
+    if($blog->update($id, $title, $content, $video_url)){
+        $_SESSION['created'] = "Post successfully Edited";
+        header("Location: ./edit-blog.php?id=$id");
+    }
+    else{
+        $_SESSION['not_created'] = "Post not Edit";
+        header("Location: ./edit-blog.php?id=$id");
+    }
+
+
+}
+elseif(isset($_GET['blog-single'])){
+    $id = $_GET['postid'];
+    return header("Location: ../single-blog.php?postid=$id");
+}
+// else{
+//     return header("Location: ./unauthorized.php?error=unauthorized");
+// }
 
 else{
     header("Location: ./");

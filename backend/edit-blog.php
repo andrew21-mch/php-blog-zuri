@@ -19,7 +19,7 @@ $user = new User();
 
     <style>
     body{
-        /* background-image: linear-gradient(#7978FF, #C47AFF); */
+        background-image: linear-gradient(#7978FF, #C47AFF);
     }
     input{
         background-color: none;
@@ -55,6 +55,23 @@ $user = new User();
             </h4></a></div>
     </div>
     
+    <?php
+    if(isset($_SESSION['created'])){ ?>
+        <div class="alert alert-success">
+            <span><?php echo $_SESSION['created']; 
+            unset($_SESSION['created']);
+            ?></span>
+        </div>
+
+    <?php }
+    elseif(isset($_SESSION['not_created'])){ ?>
+        <div class="alert alert-danger">
+            <span><?php echo $_SESSION['not_created']; 
+            unset($_SESSION['not_created']);
+            ?></span>
+        </div>
+    <?php }
+    ?>
     <?php $blog = $post->getPost($_GET['id']); ?>
     
     
@@ -64,7 +81,7 @@ $user = new User();
             <div class="col-md-12">
                 <h1>Edit Blog</h1>
                 <form action="useraction.php" method="post" class="form m-auto justify-content-center" enctype="multipart/form-data">
-                    <input type="hidden" value="<?php echo $blog['slug']; ?>" name="slug">
+                    <input type="hidden" value="<?php echo $blog['id']; ?>" name="id">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="<?php echo $blog['title'] ?>" required>
