@@ -6,6 +6,16 @@ include './User.php';
 
 $post = new Blog();
 $user = new User();
+if(isset($_POST['SUBMIT'])){
+    $title = $_POST['title'];
+    $category = $_POST['category'];
+    content = $_POST['content'];
+    mysql_query("INSERT INTO blogdata (title,category,content) VALUE('$title', '$category, '$content')");
+    echo "data has been posted, <a href='index.php'>go index</a>. - <a href='admin.php'>other post</a>";
+}else{
+    
+        
+        
 ?>
 <html lang="en">
 <head>
