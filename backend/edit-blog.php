@@ -6,6 +6,31 @@ include './User.php';
 
 $post = new Blog();
 $user = new User();
+if(isset($_POST['SUBMIT'])){
+    $title = $_POST['title'];
+    $category = $_POST['category'];
+    content = $_POST['content'];
+    mysql_query("INSERT INTO blogdata (title,category,content) VALUE('$title', '$category, '$content')");
+    echo "data has been posted, <a href='index.php'>go index</a>. - <a href='admin.php'>other post</a>";
+}else{
+    
+if(isset($_POST['add_post'])) {
+    // dd $_FILES['image']['name']);
+    //errors= validatePost($_POST);
+    if (!empty($_FILES['image']['name'])) {
+        $image_name =time(). '_' . $_FILES['image']['name'];
+        $destination = ROOT_PATH . "/images/" . $image_name;
+      
+        move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+        if ($result) {
+         $_POST['image'] = $image_name;  
+        } else {
+            array_push($errors, "failed to upload image");
+        
+    } else {
+        array_push($errors, "post image required");
+    }
+        
 ?>
 <html lang="en">
 <head>
