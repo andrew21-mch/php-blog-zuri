@@ -102,7 +102,6 @@ elseif(isset($_POST['edit-blog-submit'])){
     $id = $_POST['id'];
 
 
-
     if($blog->update($id, $title, $content, $video_url)){
         $_SESSION['created'] = "Post successfully Edited";
         header("Location: ./edit-blog.php?id=$id");
