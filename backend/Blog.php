@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once './Connection.php';
+include_once 'Connection.php';
 
 class Blog {
     private $conn;
@@ -23,6 +23,7 @@ class Blog {
         $slug = $this->createSlug($this->getTitle());
         $video_url = $this->getVid();
         $userid = isset($_SESSION['loggedInUser']) ? $_SESSION['loggedInUser'] : NULL;
+        var_dump($_SESSION);
 
 
         $sql = "INSERT INTO posts (`title`, `content`, `slug`, `video_url`, `date`, `userid`, `image`) VALUES ('$title', '$content', '$slug', '$video_url', NOW(), '$userid', '$filename')";
@@ -75,9 +76,9 @@ class Blog {
         }
     }
 
-    public function update($id, $title, $content, $video_url){
+    public function update($id, $title, $content, $video_url, $image){
         $slug = $this->createSlug($title);
-        $sql = "UPDATE posts SET title='$title', content='$content', video_url='$video_url', slug='$slug' WHERE id='$id'";
+        $sql = "UPDATE posts SET title='$title', content='$content', video_url='$video_url', slug='$slug', image='$image' WHERE id='$id'";
         if($this->conn->query($sql) === TRUE){
             return true;
         }
@@ -99,7 +100,7 @@ class Blog {
 
     public function upload($file){
         if(is_array($file)){
-            if(is_array($file['type'], array('image/jpeg', 'image/png', 'image/gif'))){
+            if( in_array($file['type'], array('image/jpeg', 'image/png', 'image/gif')) ){
                 if($file['size'] <= 2000000){
                     $filename = time(). '_'.$file['name'];
                     $path = '../images/'.$filename;

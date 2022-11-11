@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <?php
-include './Connection.php';
-include './Blog.php';
-include './User.php';
+include 'Connection.php';
+include 'Blog.php';
+include 'User.php';
+
+$post = new Blog();
    
 ?>
 <html lang="en">
@@ -45,7 +47,7 @@ include './User.php';
 <div class="flex-container">
         <div class="item"><a href="#">Bawash</a></div>
         <div class="item ml-auto"><a href="#"><h4 style="color:blue">
-                <?php session_start();
+                <?php //session_start();
                 if($_SESSION){
                     echo "Hi " . $_SESSION['username'];
                 }
@@ -86,14 +88,14 @@ include './User.php';
                     </div>
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <textarea class="form-control" id="content" name="content" rows="4" required>
-                            <?php echo $blog['content'] ?>"
-                        </textarea>
+                        <textarea class="form-control" id="content" name="content" rows="4" required><?php echo $blog['content'] ?></textarea>
                     </div>
+                    <!-- <img src="../images/<?php //echo $blog['image'] ?>" alt="Image" height="120px">
+                    <input type="hidden" name="oldimage" value="../images/<?php //echo $blog['image'] ?>" />
                     <div class="form-group">
-                        <label for="image">Image</label>
+                        <label for="image">Change Old Image</label>
                         <input type="file" class="form-control img" id="image" name="image" placeholder="Click to upload image">
-                    </div>
+                    </div> -->
                     
                     <div class="form-group">
                         <label for="url">Video Url</label>

@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+//session_start();
 
 include_once './Connection.php';
 include_once './User.php';
@@ -38,7 +38,7 @@ elseif(isset($_POST['register-submit'])){
         if($user->save()){
             $username = $user->getEmail();
             $_SESSION['username'] = $email;
-            return header("location: ./dashboard.php");
+            return header("location: ./login.php");
         }else{
             $_SESSION['error'] = "Invalid username or password";
             header("Location: ./register.php");
@@ -59,7 +59,7 @@ elseif(isset($_POST['blog-submit'])){
     $title = $_POST['title'];
     $content = $_POST['content'];
     $video_url = $_POST['url'];
-    $image = $_POST['image'];
+    $image = $_FILES['image'];
 
     $blog->setTitle($title);
     $blog->setContent($content);
@@ -71,7 +71,7 @@ elseif(isset($_POST['blog-submit'])){
         if($blog->create($filename)){
 
             $_SESSION['created'] = "Post successfully Added";
-            header("Location: ./addblog.php");
+            header("Location: ./dashboard.php");
         }
         else{
             $_SESSION['not_created'] = "Post not Added";
@@ -99,19 +99,17 @@ elseif(isset($_POST['edit-blog-submit'])){
     $title = $_POST['title'];
     $content = $_POST['content'];
     $video_url = $_POST['url'];
+    $image = $_FILES['image'];
     $id = $_POST['id'];
 
-
-    if($blog->update($id, $title, $content, $video_url)){
+    if($blog->update($id, $title, $content, $video_url, $file)){
         $_SESSION['created'] = "Post successfully Edited";
-        header("Location: ./edit-blog.php?id=$id");
+        header("Location: all-posts.php?id=$id");
     }
     else{
         $_SESSION['not_created'] = "Post not Edit";
         header("Location: ./edit-blog.php?id=$id");
     }
-
-
 }
 elseif(isset($_GET['blog-single'])){
     $id = $_GET['postid'];

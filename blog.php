@@ -1,6 +1,6 @@
 <?php
-include './backend/Connection.php';
-include "./backend/Blog.php";
+include 'backend/Connection.php';
+include "backend/Blog.php";
 
 $blogpost = new Blog();
 
@@ -139,7 +139,7 @@ $blogpost = new Blog();
                 		<span class="yr"><?php echo $year ?></span>
                 	</div>
                 </div>
-                <h3 class="heading mb-3"><a href="#"><?php echo $post['title'] ?></a></h3>
+                <h3 class="heading mb-3"><a href="backend/useraction.php?postid=<?php echo $post['postid']; ?>"><?php echo $post['title'] ?></a></h3>
                 <p><?php echo substr($post['content'], 0, 70) ?></p>
 				<form action="./backend/useraction.php" method="GET">
 					<input type="hidden" value="<?php echo $post['postid']; ?>" name="postid">

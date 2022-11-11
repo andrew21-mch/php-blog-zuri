@@ -38,7 +38,7 @@ include_once './Blog.php';
 <div class="flex-container">
         <div class="item"><a href="#">Bawash</a></div>
         <div class="item ml-auto"><a href="#"><h4 style="color:blue">
-                <?php session_start();
+                <?php //session_start();
                 if($_SESSION['username']){
                     echo "Hi " . $_SESSION['username'];
                 }
@@ -50,7 +50,14 @@ include_once './Blog.php';
             </form>
         </div>
     </div>
-    
+    <?php if(isset($_SESSION['created'])){ ?>
+        <div class="alert alert-success">
+            <span><?php echo $_SESSION['created']; 
+            unset($_SESSION['created']);
+            ?></span>
+        </div>
+
+    <?php } ?>   
     <?php if(isset($_GET['success'])){ ?>
         <div class="alert alert-success">
             <span>Post Successfully uploaded</span>

@@ -44,6 +44,23 @@ $user = new User();
 
 <body >
     <div class="container mt-5">
+    <?php
+    if(isset($_SESSION['created'])){ ?>
+        <div class="alert alert-success">
+            <span><?php echo $_SESSION['created']; 
+            unset($_SESSION['created']);
+            ?></span>
+        </div>
+
+    <?php }
+    elseif(isset($_SESSION['not_created'])){ ?>
+        <div class="alert alert-danger">
+            <span><?php echo $_SESSION['not_created']; 
+            unset($_SESSION['not_created']);
+            ?></span>
+        </div>
+    <?php }
+    ?>
         <h1 class=""> Manage Posts</h1>
     
     <div class="table">

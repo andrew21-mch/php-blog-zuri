@@ -29,12 +29,13 @@ class User {
     }
   
     public function login($username, $password) {
-        $sql = "SELECT * FROM users WHERE email = '$username'";
+        $username = strtolower($username); //make login case-insensitive
+        $sql = "SELECT * FROM users WHERE name = '$username'";
         $result = $this->conn->query($sql);
         $user = array();
         if ($result->num_rows > 0) {
             // check if password matches
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch_array()) {
                 $user = $row;
             }
             if(password_verify($password, $user['password'])){
@@ -45,7 +46,6 @@ class User {
             else{
                 return false;
             }
-
         }
         else{
             return false;
@@ -77,7 +77,7 @@ class User {
     }
 
     public function hashPassword($password){
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 15]);
         return $hashed_password;
     }
     

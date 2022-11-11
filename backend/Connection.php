@@ -2,7 +2,7 @@
 //Get  connection information
     $host = "localhost";
     $username = "root";
-    $password = "";
+    $password = "1234gh0987";
     $database_db = "php_blog_post";
 
     function connect() {
