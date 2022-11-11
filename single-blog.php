@@ -115,7 +115,7 @@ include "./backend/Blog.php";?>
 					    <div class='blog-entry justify-content-end'>
 					        <div class='text text-center'>
 					            <a href='blog-single.php' class='block-20 img'>
-        							<img src= "./images/bg_2.jpg" alt='image' class='img-fluid'>
+        							<img src= "./images/<?php echo $blogpost['image'] ?>" alt='image' class='img-fluid'>
         						</a>
 					            </form>
 					            <div class='meta text-center mb-2 align-items-center justify-content-center'>
@@ -136,6 +136,7 @@ include "./backend/Blog.php";?>
     					    	       <a href="#"><?php echo $blogpost['title']; ?></a></h3>
     					            
     					    <p> <?php echo $blogpost['content'] ?></p>
+							<a class="row btn btn-primary justify-content-center" href="<?php echo $blogpost['video_url'] ?>">Video URL</a>
 					    </div>
 				    </div>
 				</div>

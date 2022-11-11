@@ -111,7 +111,7 @@ elseif(isset($_POST['edit-blog-submit'])){
         header("Location: ./edit-blog.php?id=$id");
     }
 }
-elseif(isset($_GET['blog-single'])){
+else if(isset($_GET['blog-single'])){
     $id = $_GET['postid'];
     return header("Location: ../single-blog.php?postid=$id");
 }
