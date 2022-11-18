@@ -36,17 +36,26 @@ include_once './Blog.php';
 <body>
 
 <div class="flex-container">
-        <div class="item"><a href="#">Bawash</a></div>
-        <div class="item ml-auto"><a href="#"><h4 style="color:blue">
-                <?php session_start();
-                if($_SESSION['username']){
+        <div class="item "><a href="#">Bawash</a></div>
+        <div class="item ml-auto d-flex"><a href="#"><h4 style="color:blue">
+                <?php 
+                if(isset($_SESSION['username'])){
                     echo "Hi " . $_SESSION['username'];
+                }
+                else{
+                    echo "You are not logged in";
                 }
                 ?>
             </h4></a>
 
             <form action="useraction.php" method="post">
+              <?php  if(isset($_SESSION['username'])){?>
                 <button style="border-style: none; color: blue" type="submit" name="logout-submit">Logout</button>
+                <?php }
+                else{?>
+                    <button style="border-style: none; color: blue" type="submit" name="login-submit">Login</button>
+   
+               <?php }?>
             </form>
         </div>
     </div>
@@ -72,7 +81,7 @@ include_once './Blog.php';
                 unset($_SESSION['deleted']);
                 ?>
             
-            </sapn>
+            </span>
         </span>
         <?php } ?>
         
@@ -129,11 +138,26 @@ include_once './Blog.php';
             </div>
         </div>
     </div>
-</div>'
- <div class="row justify-content-center">
-        <a class="btn btn-primary m-3" style="width: 200px" href="../index.php">Go To Website</a>
-        <a class="btn btn-primary m-3" style="width: 200px" href="./addblog.php">Add Blog</a>
-    </div>
+</div>
+<div class='row justify-content-center'>
+         <?php
+         if(isset($_SESSION['username'])){?> <a class='btn btn-primary m-3' style='width: 200px' href='../index.php'>
+         Go To Website</a>
+           <a class='btn btn-primary m-3' style='width: 200px' href='./addblog.php'>Add Blog</a>
+           <?php }?>
+       </div>
+
+       <div class="">
+        <?php  if(isset($_SESSION['deleted'])){ ?>
+        <span class="alert alert-success">
+            <?php 
+                echo $_SESSION['deleted'];
+                unset($_SESSION['deleted']);
+                ?>
+            
+            </span>
+        </span>
+        <?php } ?>
 
 </body>
 </html>
